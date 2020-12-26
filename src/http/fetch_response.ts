@@ -15,6 +15,10 @@ export class FetchResponse {
     return !this.succeeded
   }
 
+  get unprocessableEntity() {
+    return this.statusCode == 422
+  }
+
   get redirected() {
     return this.response.redirected
   }

@@ -87,8 +87,12 @@ export class Navigator {
     }
   }
 
-  formSubmissionFailedWithResponse(formSubmission: FormSubmission, fetchResponse: FetchResponse) {
-    console.error("Form submission failed", formSubmission, fetchResponse)
+  async formSubmissionFailedWithResponse(formSubmission: FormSubmission, fetchResponse: FetchResponse) {
+    const responseHTML = await fetchResponse.responseHTML
+
+    this.view.clearSnapshotCache()
+
+    this.proposeVisit(this.location, { response: { statusCode: fetchResponse.statusCode, responseHTML } })
   }
 
   formSubmissionErrored(formSubmission: FormSubmission, error: Error) {
